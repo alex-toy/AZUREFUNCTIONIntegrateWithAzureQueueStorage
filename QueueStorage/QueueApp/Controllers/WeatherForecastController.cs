@@ -1,14 +1,11 @@
-﻿using AzureHelper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using QueueStorageApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace QueueStorageApp.Controllers
+namespace QueueApp.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -37,16 +34,6 @@ namespace QueueStorageApp.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
-        }
-
-        [HttpPost("AddWeatherForecast")]
-        public async Task AddWeatherForecast([FromBody]WeatherForecast weatherForecast)
-        {
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=alexeiqueuestorage;AccountKey=1ODKcSiD/5rQPDtwRi0ADHNf0P27/PGUt0i7gY+CjO9Z7tr40fqBuPHUPQk1hhD6+YV6XUrq/WTQ+AStocDEdw==;EndpointSuffix=core.windows.net";
-            string queueName = "add-weather-data";
-            var queue = new AzureQueue(connectionString, queueName);
-            string message = JsonSerializer.Serialize(weatherForecast);
-            await queue.SendMessage(message);
         }
     }
 }

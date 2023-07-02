@@ -9,10 +9,25 @@
 
 In this project, we will study **Azure Storage Queue**, understand the different concepts while using it from an ASP NET Core Application. We will create a Storage Account and a queue within that. We will send, read and delete messages to the queue from a ASP NET Application. We will use background jobs in asp.net core to read messages from azure queue storage.
 
-### Service Bus
+### Queue
 
-- create a **Service Bus**
-<img src="/pictures/service_bus.png" title="service bus"  width="900">
+- create a storage account
+
+- in the *Queues* section of the storage account, create a queue
+<img src="/pictures/queue.png" title="queue storage account"  width="900">
+
+- add packages
+```
+Azure.Storage.Queues
+```
+
+### .NET project
+
+- in the *Access Keys* section, grab the connection string and use it in the project
+<img src="/pictures/queue2.png" title="queue storage account"  width="500">
+
+- run the project and send messages. See it show up in the storage queue
+<img src="/pictures/queue3.png" title="queue storage account"  width="900">
 
 
 ## Azure Functions - Integrate with Azure Queue Storage 
