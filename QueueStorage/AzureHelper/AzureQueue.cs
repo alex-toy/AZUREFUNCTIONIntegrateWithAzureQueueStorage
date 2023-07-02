@@ -1,4 +1,5 @@
 ﻿using Azure;
+using Azure.Identity;
 using Azure.Storage.Queues;
 using Azure.Storage.Queues.Models;
 using System;
@@ -7,13 +8,18 @@ using System.Threading.Tasks;
 
 namespace AzureHelper
 {
-    public class AzureQueue
+    public class AzureQueue : IAzureQueue
     {
         private readonly QueueClient _queue;
 
         public AzureQueue(string connectionString, string queueName)
         {
             _queue = new QueueClient(connectionString, queueName);
+        }
+
+        public AzureQueue(Uri uri, DefaultAzureCredential credentials)
+        {
+            _queue = new QueueClient(uri, credentials);
         }
 
         public async Task SendMessage(string message, int delaySeconds = 10, int TTLSeconds = 15)

@@ -19,6 +19,7 @@ In this project, we will study **Azure Storage Queue**, understand the different
 - add packages
 ```
 Azure.Storage.Queues
+Microsoft.Extensions.Azure
 ```
 
 ### .NET project
@@ -33,8 +34,15 @@ Azure.Storage.Queues
 
 In this section, we will use background jobs
 
-- 
-<img src="/pictures/background.png" title="background jobs"  width="900">
+- create a managed identity. Don't forget to check you identity for Azure
+<img src="/pictures/identity.png" title="background jobs"  width="900">
+
+- add a role for the user
+<img src="/pictures/identity2.png" title="background jobs"  width="900">
+
+- run the app and see the messages disappearing as long as you create them
+<img src="/pictures/identity3.png" title="background jobs"  width="900">
+<img src="/pictures/identity4.png" title="background jobs"  width="900">
 
 
 ## Azure Functions - Integrate with Azure Queue Storage 

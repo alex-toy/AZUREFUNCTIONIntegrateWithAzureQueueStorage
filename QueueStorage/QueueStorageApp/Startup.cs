@@ -1,9 +1,12 @@
+using Azure.Identity;
+using AzureHelper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using QueueStorageApp.Services;
+using System;
 
 namespace QueueStorageApp
 {
@@ -21,6 +24,10 @@ namespace QueueStorageApp
         {
             services.AddControllers();
             services.AddHostedService<WeatherDataService>();
+
+            Uri serviceBusUrl = new Uri("https://alexeiqueuestorage.queue.core.windows.net/add-weather-data");
+            DefaultAzureCredential credentials = new DefaultAzureCredential();
+            services.AddSingleton<IAzureQueue>(new AzureQueue(serviceBusUrl, credentials));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

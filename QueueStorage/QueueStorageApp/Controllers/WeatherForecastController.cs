@@ -15,15 +15,16 @@ namespace QueueStorageApp.Controllers
     public class WeatherForecastController : ControllerBase
     {
         private readonly ILogger<WeatherForecastController> _logger;
-
+        private readonly IAzureQueue _queue;
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IAzureQueue queue)
         {
             _logger = logger;
+            _queue = queue;
         }
 
         [HttpGet]
@@ -42,11 +43,8 @@ namespace QueueStorageApp.Controllers
         [HttpPost("AddWeatherForecast")]
         public async Task AddWeatherForecast([FromBody]WeatherForecast weatherForecast)
         {
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=alexeiqueuestorage;AccountKey=1ODKcSiD/5rQPDtwRi0ADHNf0P27/PGUt0i7gY+CjO9Z7tr40fqBuPHUPQk1hhD6+YV6XUrq/WTQ+AStocDEdw==;EndpointSuffix=core.windows.net";
-            string queueName = "add-weather-data";
-            var queue = new AzureQueue(connectionString, queueName);
             string message = JsonSerializer.Serialize(weatherForecast);
-            await queue.SendMessage(message, 0, 3000);
+            await _queue.SendMessage(message, 0, 3000);
         }
     }
 }
