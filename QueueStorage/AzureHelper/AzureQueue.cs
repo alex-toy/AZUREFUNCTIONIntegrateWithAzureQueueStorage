@@ -1,5 +1,8 @@
-﻿using Azure.Storage.Queues;
+﻿using Azure;
+using Azure.Storage.Queues;
+using Azure.Storage.Queues.Models;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace AzureHelper
@@ -10,7 +13,7 @@ namespace AzureHelper
 
         public AzureQueue(string connectionString, string queueName)
         {
-            _queue = new QueueClient(connectionString, queueName); 
+            _queue = new QueueClient(connectionString, queueName);
         }
 
         public async Task SendMessage(string message, int delaySeconds = 10, int TTLSeconds = 15)
@@ -18,6 +21,21 @@ namespace AzureHelper
             TimeSpan delay = TimeSpan.FromSeconds(delaySeconds);
             TimeSpan TTL = TimeSpan.FromSeconds(TTLSeconds);
             await _queue.SendMessageAsync(message, delay, TTL);
+        }
+
+        public async Task<T> GetMessage<T>()
+        {
+            Response<QueueMessage> response = await _queue.ReceiveMessageAsync();
+            QueueMessage queueMessage = response.Value;
+
+            if (queueMessage != null)
+            {
+                T data = JsonSerializer.Deserialize<T>(queueMessage.MessageText);
+                await _queue.DeleteMessageAsync(queueMessage.MessageId, queueMessage.PopReceipt);
+                return data;
+            }
+
+            return default(T);
         }
     }
 }

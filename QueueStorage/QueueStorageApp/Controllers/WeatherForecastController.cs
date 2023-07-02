@@ -14,12 +14,12 @@ namespace QueueStorageApp.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
+        private readonly ILogger<WeatherForecastController> _logger;
+
         private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
-
-        private readonly ILogger<WeatherForecastController> _logger;
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
@@ -46,7 +46,7 @@ namespace QueueStorageApp.Controllers
             string queueName = "add-weather-data";
             var queue = new AzureQueue(connectionString, queueName);
             string message = JsonSerializer.Serialize(weatherForecast);
-            await queue.SendMessage(message);
+            await queue.SendMessage(message, 0, 3000);
         }
     }
 }

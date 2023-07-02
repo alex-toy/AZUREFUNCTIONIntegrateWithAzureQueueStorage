@@ -29,6 +29,13 @@ Azure.Storage.Queues
 - run the project and send messages. See it show up in the storage queue
 <img src="/pictures/queue3.png" title="queue storage account"  width="900">
 
+### Read and delete messages
+
+In this section, we will use background jobs
+
+- 
+<img src="/pictures/background.png" title="background jobs"  width="900">
+
 
 ## Azure Functions - Integrate with Azure Queue Storage 
 
