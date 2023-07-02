@@ -49,7 +49,6 @@ In this section, we will use background jobs
 
 In this project, we will write an Azure Function and understand more about how it works and the different core concepts when using them. We will integrate it with **Azure Queue Storage** and automatically listen for messages dropped to the queue. We will also use **Managed Identity** to authenticate Azure Function with Azure Queue Storage so that we don't need to set up any Secrets or connection strings in code.
 
-
 ### Azure Function
 
 - create an azure function. Choose *Queue Trigger*
@@ -57,3 +56,43 @@ In this project, we will write an Azure Function and understand more about how i
 
 - run the app and see the azure function retrieve the messages
 <img src="/pictures/af2.png" title="azure function"  width="900">
+
+- in the settings, you can provide the maximum number of times a message that resulted into an exception can be requeued
+<img src="/pictures/af3.png" title="azure function"  width="900">
+
+### Azure Function
+
+- in the azure function project, add package
+```
+Microsoft.Azure.WebJobs.Extensions.Storage
+```
+
+- run the app, it should work as well as before
+
+### Publish the app
+
+- choose windows
+<img src="/pictures/publish.png" title="publish app"  width="500">
+
+- create a function app
+<img src="/pictures/publish2.png" title="publish app"  width="500">
+
+- create a storage account
+<img src="/pictures/publish3.png" title="publish app"  width="500">
+
+- publish and see the function app created
+<img src="/pictures/publish4.png" title="publish app"  width="500">
+
+### Manage Identity
+
+- in the *Identity* section, turn on system assigned
+<img src="/pictures/af_identity.png" title="manage identity"  width="900">
+
+- for *alexeiqueuestorage*, add the *Storage Queue Data Contributor* role
+<img src="/pictures/af_identity2.png" title="manage identity"  width="900">
+
+- in the *Configuration* section, add the connection string key and value
+<img src="/pictures/af_identity3.png" title="manage identity"  width="900">
+
+- run you local API, and post messages. You should see the messages land in the azure function
+<img src="/pictures/af_identity4.png" title="manage identity"  width="900">
