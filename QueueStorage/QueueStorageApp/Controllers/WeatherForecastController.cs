@@ -44,7 +44,13 @@ namespace QueueStorageApp.Controllers
         public async Task AddWeatherForecast([FromBody]WeatherForecast weatherForecast)
         {
             string message = JsonSerializer.Serialize(weatherForecast);
-            await _queue.SendMessage(message, 0, 3000);
+            await _queue.SendMessage(Base64Encode(message), 0, 3000);
+        }
+
+        private string Base64Encode(string plainText)
+        {
+            var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            return System.Convert.ToBase64String(plainTextBytes);
         }
     }
 }

@@ -54,3 +54,6 @@ In this project, we will write an Azure Function and understand more about how i
 
 - create an azure function. Choose *Queue Trigger*
 <img src="/pictures/af.png" title="azure function"  width="900">
+
+- run the app and see the azure function retrieve the messages
+<img src="/pictures/af2.png" title="azure function"  width="900">

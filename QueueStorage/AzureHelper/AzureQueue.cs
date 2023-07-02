@@ -14,8 +14,10 @@ namespace AzureHelper
 
         public AzureQueue(string connectionString, string queueName)
         {
-            QueueClientOptions options = new QueueClientOptions();
-            options.MessageEncoding = QueueMessageEncoding.Base64;
+            QueueClientOptions options = new QueueClientOptions
+            {
+                MessageEncoding = QueueMessageEncoding.Base64
+            };
             _queue = new QueueClient(connectionString, queueName, options);
         }
 
