@@ -23,7 +23,7 @@ namespace QueueStorageApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddHostedService<WeatherDataService>();
+            //services.AddHostedService<WeatherDataService>();
 
             Uri serviceBusUrl = new Uri("https://alexeiqueuestorage.queue.core.windows.net/add-weather-data");
             DefaultAzureCredential credentials = new DefaultAzureCredential();

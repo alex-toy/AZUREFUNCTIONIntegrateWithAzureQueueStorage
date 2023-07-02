@@ -50,4 +50,7 @@ In this section, we will use background jobs
 In this project, we will write an Azure Function and understand more about how it works and the different core concepts when using them. We will integrate it with **Azure Queue Storage** and automatically listen for messages dropped to the queue. We will also use **Managed Identity** to authenticate Azure Function with Azure Queue Storage so that we don't need to set up any Secrets or connection strings in code.
 
 
-### Integrate with Azure Queue Storage
+### Azure Function
+
+- create an azure function. Choose *Queue Trigger*
+<img src="/pictures/af.png" title="azure function"  width="900">
